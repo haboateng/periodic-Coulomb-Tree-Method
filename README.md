@@ -21,6 +21,6 @@ torder      z   - Sets the order of the Taylor polynomial approximation. This is
 lattlim     w   - Sets the range of periodic images. w is 0 or a positive interger. w = 0 means no periodic images. w = 1 means include nearest 
                   neihgbors of the fundmental box as periodic images
                  
-                  
+The folders Taylor and Tricubic have examples for using the Taylor or tricubic approximations respectively.
 
                   
