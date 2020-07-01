@@ -1,0 +1,11 @@
+COPPER EAM POTENTIAL
+units  ev
+molecular types 1
+Copper
+nummols 1
+atoms 256
+Cu      63.546        0.0         256
+finish
+metal 1 table
+Cu      Cu      eam
+close

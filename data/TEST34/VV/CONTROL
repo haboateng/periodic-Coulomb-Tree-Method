@@ -1,0 +1,26 @@
+DL_POLY TEST 34: DMSO Solvation Test Case
+
+integration velocity verlet
+temperature      298.0
+steps             1000
+equilibration      500
+timestep         0.001
+print               10
+stats               10
+restart noscale
+
+ensemble nvt berendsen 0.1
+
+rdf                 10
+print rdf
+cutoff            13.0
+rvdw              13.0
+delr               1.0
+reaction field
+eps                 46
+
+decompose       500 10
+
+job time         360000
+close time         100
+finish

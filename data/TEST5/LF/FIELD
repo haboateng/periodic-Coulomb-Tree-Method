@@ -1,0 +1,21 @@
+DL_POLY TEST CASE 5: Adiabatic Shell Model MgCl2 Forcefield
+units eV
+molecular types 1
+MgCl2
+nummols 256
+atoms 5
+Mg           24.3050        2.00    1    0    1
+Cl           31.9077        0.98    2    0    1
+Cl-shl        3.5453       -1.98    2    0    1
+shell 2 1
+    2    4   19.598
+    3    5   19.598
+finish
+vdW 6
+Mg      Mg      buck     19.06076      0.3630      15.267
+Cl      Cl      buck     1906.076      0.3630      152.267
+Mg      Cl      buck     49.14541      0.2570      0.000
+Mg      Cl-shl  buck     4914.541      0.2570      32.0000
+Cl-shl  Cl-shl  buck     19.06076      0.3630      15.2267
+Cl      Cl-shl  buck     19.06076      0.3630      32.0000
+close

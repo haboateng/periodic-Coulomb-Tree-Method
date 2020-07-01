@@ -1,0 +1,46 @@
+TEST CASE 39: Calcite Nanoparticle Metadynamics
+
+#integration velocity verlet
+
+temperature			  310.0
+pressure                          0.001
+
+steps                             100000
+equilibrate                       5000
+ensemble npt hoover               0.02  0.3
+timestep                          0.0001
+cutoff	                          10.1
+delr width                        0.5
+rvdw cutoff                       10.1
+spme precision                   1.0e-6
+stats                             100
+restart scale
+metafreeze
+&nmlcolvar
+ncolvar = 6
+lstein
+llocpe
+locpe_scale = 1.52e-06
+&end
+&nmlstein
+nq4 = 5
+nq6 = 0
+&end
+&nmlgaussians
+meta_step_int = 500
+ref_W_aug     = 7.5
+h_aug         = 3.5
+hkey          = 2
+wt_Dt         35.0
+&end
+endmeta
+
+#traj   0 100 2
+
+print 100
+
+job time       4320000
+close time     120
+
+finish
+

@@ -1,0 +1,20 @@
+DL_POLY TEST 16: RELAXED SHELL MODEL MgO
+
+units eV
+molecular types 1
+MgO
+nummols 27
+atoms 12
+Mg           24.3050        2.00    4    0    1
+O_           15.9994        0.15    4    0    1
+O_S          0.0000        -2.15    4    0    1
+shell 4 2
+    5    9   15.740
+    6   10   15.740
+    7   11   15.740
+    8   12   15.740
+finish
+vdw 2
+Mg      O_S     buck     821.6000      0.32420     0.00000
+O_S     O_S     buck     22764.40      0.1490      20.3700
+close

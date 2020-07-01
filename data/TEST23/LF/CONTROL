@@ -1,0 +1,30 @@
+DL_POLY TEST CASE: Cu3Au Alloy with Gupta Potentials
+
+integration leapfrog verlet
+temperature      300.00
+pressure         0.0000
+ensemble nve
+
+steps               5000
+equilibration       1000
+multiple step         1
+scale                10
+print                50
+stack               100
+stats                10
+rdf                   1
+
+timestep         0.0050
+cutoff           6.5000
+delr width       0.5000
+rvdw cutoff      6.5000
+no electrostatics 
+
+shake tolerance  1.0E-5
+quaternion tolerance  1.0E-5
+print rdf 
+
+job time              600.00
+close time            100.00
+
+finish 

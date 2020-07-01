@@ -1,0 +1,28 @@
+TEST CASE 18: SODIUM CHLORIDE MOLECULE IN WATER
+ 
+integration velocity verlet
+
+temperature  295.0
+pressure     0.0
+ensemble nvt evans
+
+steps          5000
+equilibration  1000
+mult           1
+scale          10
+print          100
+stack          100
+stats          100
+rdf            10
+
+timestep       0.0005
+cutoff         8.0
+delr width     1.2
+ewald precision 1.e-5
+cap  1.0000E+04
+print rdf
+
+job time       999999.0
+close time     20.0
+
+finish

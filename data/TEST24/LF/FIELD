@@ -1,0 +1,11 @@
+DL_POLY TEST CASE: Iron with Finnis Sinclair Potential
+units  ev
+molecular types 1
+Iron
+nummols 1
+atoms 250
+Fe      55.847  0.0  250
+finish
+metal 1
+Fe  Fe  fnsc  1.2110601 -0.7510840  0.1380773  3.4  1.889846  3.699579  1.8
+close

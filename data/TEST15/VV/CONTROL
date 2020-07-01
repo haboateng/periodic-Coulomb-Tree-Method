@@ -1,0 +1,25 @@
+TEST CASE 15:  SiC ALLOY WITH TERSOFF POTENTIAL
+
+integrate velocity verlet
+
+pressure               0.0
+temperature          300.0
+ensemble npt hoover 1.0 1.0
+
+steps                 1000
+equilibration          200
+timestep             0.001
+scale                   10
+
+print every            100
+stats                   10
+
+cut                    3.1
+
+no elec
+no vdw
+
+job time          999999.9
+close time            99.9
+
+finish

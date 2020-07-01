@@ -1,0 +1,32 @@
+DL_POLY TEST 37: DMSO Excited State Switch Test Case
+
+integration velocity verlet
+temperature      298.0
+steps             1000
+equilibration      500
+timestep         0.001
+print               10
+stats               10
+restart noscale
+
+ensemble nvt hoover 0.1
+
+rdf                 10
+print rdf
+cutoff            13.0
+rvdw              13.0
+delr               1.0
+reaction field
+eps                 46
+
+switch
+start               500
+interval             10
+period              250
+system_a    5021   5120
+system_b    5121   5220
+endswi
+
+job time           3600
+close time          100
+finish

@@ -1,0 +1,6 @@
+! Q4 pairs         r1       r2      scale     nn
+Ca       Ca        5.25    5.65    400.687   12
+Ca       C_CaCO3   3.65    4.05     230.09   12 
+Ca       O_CaCO3   2.65    3.05    143.106   12
+C_CaCO3  C_CaCO3   5.15    5.50     272.74   8
+C_CaCO3  O_CaCO3   1.30    1.55     67.833   3

@@ -1,0 +1,35 @@
+DL_POLY TEST CASE 4: Adiabatic Dynamical Shell Model of Water
+
+integration velocity verlet
+
+temperature      200.00
+pressure         0.0000
+ensemble nvt berendsen 0.5
+
+steps               500
+equilibration       100
+multiple step         4
+scale                10
+collect 
+print                 5
+stack               100
+stats                 5
+rdf                   1
+
+timestep         5.0E-4
+primary cutoff   7.6000
+cutoff           9.6000
+delr width       1.2000
+rvdw cutoff      8.0000
+reaction field 
+eps constant     78.000
+cap forces       10000.
+shake tolerance  1.0E-5
+quaternion tolerance  1.0E-5
+zdensity 0.1 29.0
+print rdf 
+
+job time              900.00
+close time            20.000
+
+finish 

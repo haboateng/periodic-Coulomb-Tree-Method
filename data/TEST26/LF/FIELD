@@ -1,0 +1,11 @@
+NICKEL WITH TABULATED EAM POTENTIAL
+units  k
+molecular types 1
+Nickel
+nummols 256
+atoms 1
+Ni      58.6900       0.0         1
+finish
+metal 1
+Ni      Ni      eam
+close

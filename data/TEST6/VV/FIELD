@@ -1,0 +1,53 @@
+DL_POLY TEST CASE 6: Potential of mean force on K+ in water : forcefield
+units kJ
+molecular types 2
+spc water
+nummols 100
+atoms 3
+OW           16.0000       -0.82    1
+HW            1.0000        0.41    2
+constraints 3
+   1    2    1.000
+   1    3    1.000
+   2    3    1.63288
+finish
+K-H20 - pmf
+nummols 4
+atoms 4
+OW           16.0000       -0.82    1
+HW            1.0000        0.41    2
+K            39.0000        1.00    1
+constraints 3
+   1    2    1.000
+   1    3    1.000
+   2    3    1.63288
+pmf      3.00
+pmf unit 3
+    1     16.000
+    2      1.000
+    3      1.000
+pmf unit 1
+    4     39.000
+finish
+vdW 6
+K       K        lj      1.356523      3.13
+K       OW       lj       .929218      3.1475
+OW      OW       lj       .653141      3.1660
+OW      HW       lj       .000000      1.000
+K       HW       lj       .000000      1.000
+HW      HW       lj       .000000      1.000
+close
+
+
+
+constraints 3
+   1    2    1.000
+   1    3    1.000
+
+
+   2    3    1.63288
+
+bonds 3
+harm    1    2   100.0     1.000
+harm    1    3   100.0     1.000
+harm    2    3   1000.     1.63288

@@ -1,0 +1,37 @@
+DL_POLY TEST CASE 7: Biphenyl forcefield
+units kj
+molecular types 1
+diphenyl
+nummols 8
+atoms 18
+C            13.0200        0.15    6
+q             0.0000      -2.253    2
+q             0.0000       3.606    1
+C            13.0200        0.15    6
+q             0.0000      -2.253    2
+q             0.0000       3.606    1
+constraints   1
+    6   14   1.40000
+rigid units 2
+    9    1    2    3    4    5    6    7    8    9
+    9   10   11   12   13   14   15   16   17   18
+angles 4
+harm    1    6   14     140.00      120.00
+harm    2    6   14     140.00      120.00
+harm   12    14   6     140.00      120.00
+harm   13    14   6     140.00      120.00
+dihedrals 4
+ cos     1    6   14   12    18.720     180.0               2    0.8000      0.5000
+ cos     1    6   14   13    18.720     180.0               2    0.8000      0.5000
+ cos     2    6   14   12    18.720     180.0               2    0.8000      0.5000
+ cos     2    6   14   13    18.720     180.0               2    0.8000      0.5000
+finish
+vdw 3
+C       C       buck   369743.     0.277778     2576.2
+C       q       snm    0.200       12.0            6.0       3.367
+q       q       lj     0.000           1.00
+close
+
+bonds 1
+harm    6   14  100.0      1.4
+

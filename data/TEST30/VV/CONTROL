@@ -1,0 +1,19 @@
+DL_POLY TEST 30: Zero K Minimisation DNA Strand (1260 Atoms)
+
+integrator velocity verlet
+zero
+temperature         1.0
+steps               500
+print                10
+stack                10
+stats                10
+timestep         0.0010
+cutoff           10.000
+delr width       0.5000
+rvdw cutoff      10.000
+spme precision   1.0E-6
+shake tolerance  1.0E-8
+job time         3600.0
+close time        100.0
+
+finish 

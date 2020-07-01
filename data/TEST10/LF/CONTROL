@@ -1,0 +1,31 @@
+D_POLY TEST CASE 10: DNA Strand (1260 Atoms) in SPC Water (706 Molecules)
+
+integrate leapfrog verlet
+
+temperature      310.00
+pressure         0.0000
+ensemble nve 
+
+steps               300
+equilibration       100
+multiple step         1
+scale                 5
+print                10
+stack               100
+stats               100
+rdf                   1
+
+timestep         0.0010
+cutoff           10.000
+delr width       0.5000
+rvdw cutoff      10.000
+spme precision   1.0E-6
+cap forces       10.000
+shake tolerance  1.0E-8
+quaternion tolerance  1.0E-5
+print rdf 
+
+job time              3600.0
+close time            100.00
+
+finish 

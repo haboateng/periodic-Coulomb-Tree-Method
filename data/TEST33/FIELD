@@ -1,0 +1,21 @@
+FIELD file for Sodium Chloride (2 vacancies)
+UNITS eV
+MOLECULES  2
+Chlorine Ions
+NUMMOLS  1
+ATOMS 499
+Cl        35.453     -1.00000000  499
+FINISH
+Sodium Ions
+NUMMOLS  1
+ATOMS 499
+Na        22.988      1.00000000  499
+FINISH
+VDW       3
+Cl      Cl      bhm   0.11401754  3.15450000  3.17000000  72.4009464  145.426039
+Cl      Na      bhm   0.21096138  3.15450000  2.75500000  6.99043621  8.67563065
+Na      Na      bhm   0.26370000  3.15450000  2.34000000  1.04856543  0.49931687
+CLOSE
+Cl      Cl      lj    1.78081E-2  3.55914038
+Cl      Na      lj    1.37520E-2  2.51678889
+Na      Na      lj    1.28328E-2  1.47443738

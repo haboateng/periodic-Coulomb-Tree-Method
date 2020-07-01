@@ -1,0 +1,14 @@
+DL_POLY TEST CASE: Cu3Au Alloy with Gupta  Potentials
+units  ev
+molecular types 1
+Copper-Gold
+nummols 64
+atoms 4
+Cu      63.546        0.0         3
+Au     196.9670       0.0         1
+finish
+metal 3
+Cu      Cu      gupt   0.1710    2.556     10.960     1.224      2.278
+Cu      Au      gupt   0.3078    2.556     11.050     1.5605     3.0475
+Au      Au      gupt   0.4122    2.884     10.229     1.790      4.036
+close

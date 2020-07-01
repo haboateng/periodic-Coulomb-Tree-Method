@@ -1,0 +1,28 @@
+DL_POLY TEST 16: RELAXED SHELL MODEL MgO
+
+integrate velocity verlet
+
+temperature      3000.0
+pressure         0.0000
+ensemble nst ber 0.1 0.3
+
+steps              1000
+equilibration       200
+
+scale                10
+print                10
+stack               100
+stats                10
+rdf                  10
+
+timestep         2.0E-3
+cutoff           6.0000
+delr width       0.1500
+ewald precision  1.0E-5
+
+print rdf 
+
+job time              3600.0
+close time            200.00
+
+finish 

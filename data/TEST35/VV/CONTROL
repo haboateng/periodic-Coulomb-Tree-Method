@@ -1,0 +1,33 @@
+DL_POLY TEST 35: DMSO Free Energy Test Case
+
+integration velocity verlet
+temperature      298.0
+steps             1000
+equilibration      500
+timestep         0.001
+print               10
+stats               10
+restart noscale
+
+ensemble nvt hoover 0.1
+
+rdf                 10
+print rdf
+cutoff            13.0
+rvdw              13.0
+delr               1.0
+reaction field
+eps                 46
+
+free
+start              500
+interval            10
+lambda            0.25
+mix                  4
+system_a    5021   5120
+system_b    5121   5220
+endfre
+
+job time         36000
+close time         100
+finish

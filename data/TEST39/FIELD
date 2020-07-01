@@ -1,0 +1,43 @@
+Calcite nanoparticle in water
+UNITS      eV
+molecules 3
+Ca
+NUMMOLS          75
+ATOMS         1
+      Ca  40.1000000   2.0000000    
+FINISH
+CO3
+NUMMOLS      75
+ATOMS          4
+  C_CaCO3    12.00        1.1350	
+  O_CaCO3    15.80        -1.045
+  O_CaCO3    15.80        -1.045
+  O_CaCO3    15.80        -1.045
+BONDS        3
+-mrs 1    2    4.71        1.18        3.80        1.5
+-mrs 1    3    4.71        1.18        3.80        1.5
+-mrs 1    4    4.71        1.18        3.80        1.5
+ANGLES        3
+-hrm 2    1    3    1.69000     120.0
+-hrm 2    1    4    1.69000     120.0
+-hrm 3    1    4    1.69000     120.0
+FINISH
+WATER
+nummols    863
+ATOMS          3
+  O_tip3p    15.8000      -0.834
+  H_tip3p     1.0080       0.417
+  H_tip3p     1.0080       0.417
+BONDS         2
+harm 1    2    23.9907488   0.9572
+harm 1    3    23.9907488   0.9572
+ANGLES        1
+harm 2    1    3    4.3382909   104.52
+FINISH
+VDW         5
+ O_CaCO3  O_CaCO3 buck 16372.0     0.213       3.47
+ O_CaCO3  Ca      buck 1550.0      0.297       0.0
+     Ca   O_tip3p buck 1186.6      0.297       0.0
+ O_tip3p  O_tip3p 12-6 25246.059   25.80524056
+ O_CaCO3  O_tip3p nm   0.0013      9           6      4.63
+CLOSE

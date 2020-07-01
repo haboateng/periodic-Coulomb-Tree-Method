@@ -1,0 +1,29 @@
+DL_POLY TEST CASE 6: Potential of mean force on K+ in water
+
+integration leapfrog verlet
+
+temperature      300.00
+pressure         0.0000
+ensemble pmf 
+
+steps               500
+equilibration       100
+scale                10
+print                10
+stack               100
+stats                 5
+rdf                   1
+
+timestep         0.0020
+cutoff           7.4633
+delr width       1.2000
+rvdw cutoff      7.4633
+ewald precision  1.0E-6
+shake tolerance  1.0E-8
+quaternion tolerance  1.0E-5
+print rdf 
+
+job time              900.00
+close time            20.000
+
+finish 

@@ -1,0 +1,34 @@
+DL_POLY TEST CASE 8: semi permeable membrane
+
+integrate velocity verlet
+
+temperature      300.00
+pressure         0.0000
+ensemble nst hoover   1.0000  5.0000
+
+steps               500
+equilibration       100
+multiple step         6
+scale                10
+collect 
+print                 5
+stack               100
+stats                10
+rdf                  10
+
+timestep         0.0010
+primary cutoff   7.0000
+cutoff           9.0000
+delr width       1.0000
+rvdw cutoff      9.0000
+no electrostatics 
+cap forces       100000
+shake tolerance  1.0E-5
+quaternion tolerance  1.0E-5
+zdensity 0.1 50.0
+print rdf 
+
+job time              43200.
+close time            100.00
+
+finish 

@@ -1,0 +1,14 @@
+TEST CASE 13: CARBON TERSOFF POTENTIAL
+
+UNITS  ev
+MOLECULES 1
+Carbon 
+NUMMOL 800
+ATOMS  1     
+C            12.0100        0.00    1
+FINISH
+TERSOFF 1
+C       ters      1393.6      3.4879      346.74      2.2119        1.80
+        2.10   1.5724e-7     0.72751     38049.0      4.3484    -0.57058
+C  C  1.0  1.0
+CLOSE

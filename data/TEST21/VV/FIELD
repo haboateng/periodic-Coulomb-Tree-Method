@@ -1,0 +1,11 @@
+ALUMINIUM WITH TABULATED EAM POTENTIAL
+units  k
+molecular types 1
+Aluminium
+nummols 256
+atoms 1
+Al      26.9815       0.0         1
+finish
+metal 1
+Al      Al      eam
+close

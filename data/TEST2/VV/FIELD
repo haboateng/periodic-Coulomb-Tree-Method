@@ -1,0 +1,11 @@
+DL_POLY TEST CASE 2: Al with Sutton-Chen forcefield
+units  ev
+molecular types 1
+Aluminium
+nummols 1
+atoms 256
+Al      26.9815       0.0         256
+finish
+metal 1
+Al      Al      stch   0.033147    4.05       7.0        6.0         16.399
+close

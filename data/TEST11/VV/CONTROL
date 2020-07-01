@@ -1,0 +1,31 @@
+DL_POLY TEST CASE 11 : Hautman-Klein Test Case
+
+integrate velocity verlet
+
+temperature      300.00
+pressure         0.0000
+ensemble nve 
+
+steps               500
+equilibration       200
+multiple step         1
+scale                 5
+print                10
+stack               100
+stats                10
+rdf                  10
+
+timestep         0.0010
+cutoff           22.500
+delr width       0.5000
+rvdw cutoff      7.5000
+hke precision    1.0E-5  1  1
+shake tolerance  1.0E-5
+quaternion tolerance  1.0E-5
+zdensity       0.1 50.0
+print rdf 
+
+job time              4500.0
+close time            100.00
+
+finish 

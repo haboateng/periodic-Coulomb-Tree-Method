@@ -1,0 +1,38 @@
+WATER (20736 ATOMS)
+
+integration velocity verlet
+temperature        307.46
+
+ensemble nvt hoover 0.125 
+
+timestep           0.005
+
+steps              5 
+equilibration      0
+
+cutoff             8.0
+delr width         1.2
+rvdw               8.0
+shake              1e-8
+#rdf                1000
+ 
+#print rdf
+
+ltree
+tricubic
+mactheta              0.6
+maxparnode            500
+torder                4 
+lattlim               1 
+
+print every        1
+ 
+#traj               1 10 0 
+
+stats every        1
+stack              1
+
+job time          1000000
+close time           1000
+
+finish

@@ -1,0 +1,35 @@
+Sodium Chloride 998 ions (2 vacancies)
+
+temperature        290.0
+
+ensemble nvt hoover 0.5
+steps              500000
+equilibration         0
+multiple step         1
+#scale                10
+print              100
+stack               100
+stats              1000
+restart scale
+
+bpd path
+units eV
+ebias         4107.19
+vmin          2194.44
+num_block     300
+num_track     10
+catch_radius  3.5
+neb_spring    1.0
+force         0.00025
+endbpd
+
+timestep          0.001
+cutoff          12.0000
+delr width       0.5000
+rvdw cutoff     12.0000
+spme precision   1.e-5
+
+job time            72000.0
+close time            500.0
+
+finish 

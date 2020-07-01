@@ -1,0 +1,49 @@
+TEST CASE 38: TIP4P freezing
+
+integration velocity verlet
+
+temperature                      180
+pressure                         0.001
+
+steps                            100000
+equilibrate                      5000
+
+ensemble    npt   hoover      0.05 0.5
+
+timestep                         0.001
+cutoff                            8.5       
+delr width                        0.5       
+rvdw cutoff                       8.5       
+spme precision                   1.0e-6
+
+traj    1 100 0
+
+stats 100
+
+metafreeze
+&nmlcolvar
+ncolvar 2
+lstein
+lglobpe
+globpe_scale  8.0E-7
+&end
+&nmlstein
+nq4  0
+nq6  1
+&end
+&nmltet
+ntet  0
+&end
+&nmlgaussians
+meta_step_int  500
+ref_W_aug      3.0
+h_aug          0.02
+hkey           2
+wt_Dt          75.0
+&end
+endmet
+
+job time       432000
+close time     600
+
+finish

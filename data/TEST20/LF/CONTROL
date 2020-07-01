@@ -1,0 +1,31 @@
+TEST CASE 20: DIBENZENE LINKED RIGID MOLECULES
+
+integration leapfrog verlet
+
+temperature      200.0
+pressure         0.0000
+
+ensemble npt hoover 5.0 15.0
+
+steps              3000
+equilibration      1000
+multiple step         1
+scale                10
+print               100
+stack               100
+stats                10
+rdf                2000
+print rdf
+
+timestep         0.001
+cutoff           9.5000
+delr width       1.0000
+rvdw cutoff      9.5000
+
+no elec
+shake tolerance  1.0E-5
+
+job time            9999999.0
+close time            100.00
+
+finish 

@@ -1,0 +1,17 @@
+FIELD file for TIP4P water
+UNITS             kJ
+MOLECULES    1
+tip4p water free
+NUMMOLS          512
+ATOMS              4
+ O_tip4p     15.9998       0.000     1    0   
+ H_tip4p      1.0080       0.5200    1    0   
+ H_tip4p      1.0080       0.5200    1    0   
+ M_tip4p      0.0000      -1.0400    1    0   
+RIGID              1
+    4    1    2    3    4
+FINISH
+
+VDW                1
+ O_tip4p O_tip4p  lj       0.6489       3.154 
+CLOSE

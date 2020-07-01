@@ -1,0 +1,35 @@
+Argon Bulk with 1 vacancy
+
+temperature       110.0
+
+steps           1000000
+equilibration      5000
+multiple step         1
+scale                10
+print              1000
+stack               100
+stats              1000
+restart scale
+
+tad  
+units kJ
+num_block     500
+num_track     10
+blackout      1000
+catch_radius  3.5
+neb_spring    10.0
+deltad        6.91
+low_temp      40.0
+force         0.0025
+endtad
+
+timestep          0.001
+cutoff           8.0000
+delr width       0.5000
+rvdw cutoff      8.0000
+no elec
+
+job time            72000.0
+close time            200.00
+
+finish 

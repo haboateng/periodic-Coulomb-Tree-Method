@@ -1,0 +1,31 @@
+DL_POLY TEST CASE 7: Biphenyl
+
+integration leapfrog verlet
+
+temperature      310.00
+pressure         0.0000
+ensemble nve 
+
+steps               500
+equilibration       100
+multiple step         1
+restart scale 
+scale                50
+print                20
+stack               100
+stats                10
+rdf                  10
+
+timestep         0.0010
+cutoff           6.5000
+delr width       1.2000
+rvdw cutoff      6.5000
+ewald precision  1.0E-5
+shake tolerance  1.0E-8
+quaternion tolerance  1.0E-5
+print rdf 
+
+job time              3600.0
+close time            20.000
+
+finish 

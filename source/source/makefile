@@ -1,0 +1,121 @@
+# Master makefile for DL_POLY Classic
+# Author: W. Smith December 2010
+# 
+#=======================================================================
+# Define default settings
+#=======================================================================
+
+BINROOT = ../execute
+CC  = gcc
+EX = DLPOLY.X
+EXE = $(BINROOT)/$(EX)
+FC=undefined
+SHELL=/bin/sh
+TYPE=seq
+
+#=====================================================================
+# Define object files
+
+OBJ_MOD = parse_module.o setup_module.o error_module.o \
+	site_module.o config_module.o pair_module.o utility_module.o \
+	metafreeze_module.o solvation_module.o tether_module.o \
+	vdw_module.o property_module.o rigid_body_module.o \
+	angles_module.o bonds_module.o shake_module.o \
+	inversion_module.o dihedral_module.o core_shell_module.o \
+	exclude_module.o tree_module.o ewald_module.o coulomb_module.o\
+	external_field_module.o four_body_module.o \
+	hkewald_module.o metal_module.o ensemble_tools_module.o \
+	temp_scalers_module.o three_body_module.o spme_module.o \
+	tersoff_module.o neu_coul_module.o \
+	nlist_builders_module.o forces_module.o \
+	lf_motion_module.o lf_rotation1_module.o \
+	lf_rotation2_module.o vv_motion_module.o \
+	vv_rotation1_module.o vv_rotation2_module.o \
+	pmf_module.o integrator_module.o optimiser_module.o \
+	hyper_dynamics_module.o driver_module.o \
+	define_system_module.o
+
+OBJ_SRC = dlpoly.o
+
+OBJ_PAR = serial.o
+
+#=====================================================================
+# Define targets
+all:
+	@echo "Error - please specify a target machine!"
+	@echo "Permissible targets for this Makefile are:"
+	@echo "                                          "
+	@echo "nag-f95                    (serial)"
+	@echo "gfortran                   (serial)"
+	@echo "macosx                     (serial)"
+	@echo "intel-linux-ifc            (serial)"
+	@echo "         "
+	@echo "Please examine Makefile for details"
+
+# system specific targets follow :
+
+#========================== NAG Fortran 95 ===========================
+nag-f95:
+	$(MAKE) LD="f95 -o" LDFLAGS="" \
+	FC=f95 FFLAGS="-c -O -fixed -kind=byte" \
+	EX=$(EX) BINROOT=$(BINROOT) $(TYPE)
+
+#========== GNU Fortran =================================================
+gfortran:
+	$(MAKE) LD="gfortran -o" LDFLAGS="" FC=gfortran \
+	FFLAGS="-c -O2 -ffast-math" \
+	EX=$(EX) BINROOT=$(BINROOT) $(TYPE)
+
+#====================== GNU fortran compiler - DEBUG =================
+gnu-debug:
+	$(MAKE) LD="gfortran -o" \
+	LDFLAGS="-O3 -g -fbacktrace" \
+	FC="gfortran -c" \
+	FCFLAGS="-O3 -Wall -Wextra -pedantic -g -fbounds-check -fbacktrace \
+		 -finit-integer=-9999 -finit-real=nan -std=f2003 -fdump-core \
+		 -ffpe-trap=invalid,zero,overflow -frecord-gcc-switches \
+		 -DBUILDER=\"$(BUILDER)\" -DHOST=\"$(HOSTNAME)\"" \
+	EX=$(EX) BINROOT=$(BINROOT) $(TYPE)
+
+#============= MacOSX (Darwin) version: derived from AIX ===============
+macosx: 
+	$(MAKE) LD="xlf -o" LDFLAGS="" FC=xlf FFLAGS="-c -O3 -qstrict -qarch=g5 -qnosave"\
+	EX=$(EX) BINROOT=$(BINROOT) $(TYPE)
+
+#========== Intel Linux IFC =============================================
+intel-linux-ifc: 
+	$(MAKE) FC=ifc LD="ifc -o" FFLAGS="-c -O3 -w95 -w" \
+	LDFLAGS="-Vaxlib -static" \
+	EX=$(EX) BINROOT=$(BINROOT) $(TYPE)
+
+#=====================================================================
+# Default code for sequential execution
+
+seq: check $(OBJ_MOD) $(OBJ_PAR) $(OBJ_SRC)
+	$(LD) $(EX) $(LDFLAGS) $(OBJ_MOD) $(OBJ_PAR) $(OBJ_SRC)
+	mv $(EX) $(EXE)
+
+#=====================================================================
+# Check that a machine has been specified
+check:
+	@if test $(FC) = "undefined";\
+	then echo "You must specify a target machine!"; \
+	exit 99;\
+	fi
+
+#=====================================================================
+# Clean up the source directory
+clean:
+	rm -f $(OBJ_MOD) $(OBJ_PAR) $(OBJ_SRC) *.mod
+
+#=====================================================================
+# Declare dependencies
+.f.o: 
+	$(FC) $(FFLAGS) $*.f
+.c.o: 
+	$(CC) -c $*.c
+
+#=====================================================================
+# Declare dependency on module files
+
+$(OBJ_SRC): $(OBJ_MOD)

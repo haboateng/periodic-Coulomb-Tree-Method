@@ -1,0 +1,19 @@
+TEST 29: SPC IceVII (432 Molecules) Minimisation
+
+integrator velocity verlet
+minimise force   100 1.0
+temperature         25.0
+steps               1000
+equil               1000
+print                 10
+stack                 10
+stats                  1
+scale                 10
+timestep           0.001
+cutoff               7.0
+delr                 0.5
+spme precision    1.0E-6
+shake tolerance        1.0E-6
+job time       1000000.0
+close time         100.0
+finish 
