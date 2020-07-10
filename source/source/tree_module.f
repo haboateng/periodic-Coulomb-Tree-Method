@@ -623,6 +623,15 @@
          fff(2)=fff(2)+fy
          fff(3)=fff(3)+fz
 
+c     calculate stress tensor
+
+         strs(1)=strs(1)+xdf(m)*fx
+         strs(2)=strs(2)+xdf(m)*fy
+         strs(3)=strs(3)+xdf(m)*fz
+         strs(4)=strs(4)+ydf(m)*fy
+         strs(5)=strs(5)+ydf(m)*fz
+         strs(6)=strs(6)+zdf(m)*fz
+
 !     complete stress tensor
         
          stress(1)=stress(1)-tempq*strs1
