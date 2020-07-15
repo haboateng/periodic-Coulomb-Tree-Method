@@ -20,8 +20,6 @@
 ! global variables for Tricubic
 
       INTEGER :: trcord,trcsize 
-      REAL(KIND=r8),ALLOCATABLE,DIMENSION(:,:) :: BinvT! Transpose of the inverse of B
-      REAL(KIND=r8),PARAMETER :: bfac = 0.037037037037037037037037_r8
 ! global variables to track tree levels 
  
       INTEGER :: minlevel,maxlevel!,lattlim,maxparnode
@@ -87,25 +85,6 @@
       thetasq=mactheta*mactheta
 
       trcord = 3
-      trcsize = (trcord+1)**3
-
-! allocate Tricubic variables
-
-      ALLOCATE(BinvT(1:trcsize,1:trcsize), STAT=err)
-      IF(err .NE. 0) THEN
-        WRITE(6,*) 'Error allocating Tricubic B-inverse matrix'
-        STOP
-      END IF
-
-! Read in B-inverse matrix
-      IF(idnode .EQ. 0) THEN 
-         OPEN(unit=80,file='Bnew2Inv_Matrix.txt')
-         READ(80,*)BinvT ! Read in the tranpose of B-inverse 
-!                     !((BinvT(i,j), j=1,trcsize),i=1,trcsize)
-         BinvT = bfac*BinvT
-         CLOSE(80)
-      END IF
-
 ! allocate global Taylor expansion variables
 
       ALLOCATE(cf(0:torder),cf1(torder+1),cf2(torder+1),
@@ -698,38 +677,20 @@ c     remove COM drift arising from treecode approximations
          penglocal=0.0_r8; virlocal=0.0_r8   
          flocal=0.0_r8
          
-         IF (taylortree) THEN  ! Taylor treecode
-            CALL COMP_TCOEFF_PBC(tx,ty,tz,distsq)
-            DO k=0,torder
-               cfk=cf(k); k1=k+1
-               DO j=0,torder-k
-                  cfj=cf(j); j1=j+1
-                  DO i=0,torder-k-j
-                     mtmp     =p%ms(i,j,k)
-                     flocal(1)=flocal(1)+cf(i)*b1(i+1,j,k)*mtmp
-                     flocal(2)=flocal(2)+cfj  *b1(i,j1,k) *mtmp
-                     flocal(3)=flocal(3)+cfk  *b1(i,j,k1) *mtmp
-                     peng     =peng+b1(i,j,k)*mtmp
-                  END DO
+         CALL COMP_TCOEFF_PBC(tx,ty,tz,distsq)
+         DO k=0,torder
+            cfk=cf(k); k1=k+1
+            DO j=0,torder-k
+               cfj=cf(j); j1=j+1
+               DO i=0,torder-k-j
+                  mtmp     =p%ms(i,j,k)
+                  flocal(1)=flocal(1)+cf(i)*b1(i+1,j,k)*mtmp
+                  flocal(2)=flocal(2)+cfj  *b1(i,j1,k) *mtmp
+                  flocal(3)=flocal(3)+cfk  *b1(i,j,k1) *mtmp
+                  peng     =peng+b1(i,j,k)*mtmp
                END DO
             END DO
-         ELSE IF (tricubictree) THEN   ! Tricubic treecode
-            bvec=0.0_r8; bdvecx=0.0_r8; bdvecy=0.0_r8; bdvecz=0.0_r8
-            CALL kerEVAL_B2(p,bvec,bdvecx,bdvecy,bdvecz,
-     x                   nxboxl,nyboxl,nzboxl)
-            peng     =peng+DOT_PRODUCT(bvec,p%trcms)
-            flocal(1)=flocal(1)-DOT_PRODUCT(bvec,p%trcmsx)
-            flocal(2)=flocal(2)-DOT_PRODUCT(bvec,p%trcmsy)
-            flocal(3)=flocal(3)-DOT_PRODUCT(bvec,p%trcmsz)
-
-!            fflocal(1)=fflocal(1)-DOT_PRODUCT(bdvecx,p%trcms)
-!            fflocal(2)=fflocal(2)-DOT_PRODUCT(bdvecy,p%trcms)
-!            fflocal(3)=fflocal(3)-DOT_PRODUCT(bdvecz,p%trcms)
-
-         ELSE
-           IF(idnode .eq. 0)WRITE(nrite,*)"TREECODE UNSPECIFIED"
-           STOP
-         END IF
+         END DO
 
          f=f+flocal
          vir=vir+flocal(1)*tx+flocal(2)*ty+flocal(3)*tz
@@ -767,68 +728,6 @@ c     remove COM drift arising from treecode approximations
 
       RETURN
       END SUBROUTINE COMPFP_TREE_PBC
-
-!!!!!!!!!!!!!!
-      SUBROUTINE kerEVAL_B2(p,bvec,bdvecx,bdvecy,bdvecz,
-     x                   nxboxl,nyboxl,nzboxl)
-
-      IMPLICIT NONE
-
-! kerEVAL_B2 evaluates the function and its derivatives at the sixteen points, i.e.
-! The eight corners and the eight internal points
-
-      TYPE(tnode),POINTER :: p
-      REAL(KIND=r8),DIMENSION(1:trcsize),INTENT(INOUT) :: bvec,bdvecx
-      REAL(KIND=r8),DIMENSION(1:trcsize),INTENT(INOUT) :: bdvecy,bdvecz
-      REAL(KIND=r8),INTENT(IN) :: nxboxl,nyboxl,nzboxl
-
-! local variables
-
-      INTEGER :: i,i16,i32,i48
-      REAL(KIND=r8) :: tx,ty,tz,rrr,rr2,rr3,rr5
-
-      DO i=1,16
-
-        i16=i+16; i32=i+32; i48=i+48
-
-        tx=tarpos(1)-p%ccp(i,1)-nxboxl
-        ty=tarpos(2)-p%ccp(i,2)-nyboxl
-        tz=tarpos(3)-p%ccp(i,3)-nzboxl
-
-        rr2 = 1.0_r8/(tx*tx + ty*ty + tz*tz)
-        rrr = SQRT(rr2)
-        rr3 = rrr*rr2
-        rr5 = rr2*rr3
-
-        bvec(i)=rrr
-        bvec(i16)=tx*rr3*p%dx
-        bvec(i32)=ty*rr3*p%dy
-        bvec(i48)=tz*rr3*p%dz
-
-!        bdvecx(i16)=(3.0_r8*tx*tx*rr5-rr3)*p%dx*p%dx
-!        bdvecx(i32)=3.0_r8*tx*ty*rr5*p%dx*p%dy
-!        bdvecx(i48)=3.0_r8*tx*tz*rr5*p%dx*p%dz
-
-!        bdvecy(i32)=(3.0_r8*ty*ty*rr5-rr3)*p%dy*p%dy
-!        bdvecy(i48)=3.0_r8*ty*tz*rr5*p%dy*p%dz
-
-!        bdvecz(i48)=(3.0_r8*tz*tz*rr5-rr3)*p%dz*p%dz
-
-      END DO
-
-!      bdvecx(1:16) =bvec(17:32)
-      
-!      bdvecy(1:16) =bvec(33:48)
-!      bdvecy(17:32)=bdvecx(33:48)
-
-!      bdvecz(1:16) =bvec(49:64)
-!      bdvecz(17:32)=bdvecx(49:64)
-!      bdvecz(33:48)=bdvecy(49:64)
- 
-      RETURN
-
-      END SUBROUTINE kerEVAL_B2
-!!!!!!!!!!!!!!
 
 !!!!!!!!!!!!!!
       SUBROUTINE COMPFP_DIRECT_PBC(peng,f,ibeg,iend,x,y,z,q,arrdim,
@@ -983,76 +882,6 @@ c     remove COM drift arising from treecode approximations
       END SUBROUTINE COMP_MS
 !!!!!!!!!!!!!!!!!!!!!!!!!!
    
-      SUBROUTINE TRICUBIC_MOMENTS(p,x,y,z,q,arrdim)
-      IMPLICIT NONE
-
-! TRICUBIC_MOMENTS computes the moments for node P needed in the Tricubic approximation
-!
-      INTEGER,INTENT(IN) :: arrdim
-      TYPE(tnode),POINTER :: p
-      REAL(KIND=r8),DIMENSION(arrdim),INTENT(IN) :: x,y,z,q
-
-! localc variables
-
-      INTEGER       :: id,i,j,k,i1,i4j,kk
-      REAL(KIND=r8) :: tx,ty,tz,rtx,rty,rtz,qi,sij,s
-      REAL(KIND=r8) :: mm(1:trcsize)
-      LOGICAL       :: txzero,tyzero,tzzero
-      mm=0.0_r8; 
-      p%trcms=0.0_r8; p%trcmsx=0.0_r8; p%trcmsy=0.0_r8; p%trcmsz=0.0_r8;
-      DO  id=p%ibeg,p%iend
-
-          tx=(x(id)-p%x_min)*p%rdx
-          ty=(y(id)-p%y_min)*p%rdy
-          tz=(z(id)-p%z_min)*p%rdz
-
-          txzero=(abs(tx) .LT. 1.0e-8)
-          tyzero=(abs(ty) .LT. 1.0e-8)
-          tzzero=(abs(tz) .LT. 1.0e-8)
-          rtx=Merge(0.0_r8,1.0_r8/tx,txzero)
-          rty=Merge(0.0_r8,1.0_r8/ty,tyzero)
-          rtz=Merge(0.0_r8,1.0_r8/tz,tzzero)
-
-          qi=q(id)
-          DO i=0,trcord
-   
-             i1  = i+1
-             sij = qi
-             DO j=0,trcord
-                
-                i4j = i1 + 4 * j
-                s   = sij
-                DO k=0,trcord
-   
-                   kk = i4j + 16 * k
-                   
-                   p%trcms(kk) =p%trcms(kk) + s
-                   p%trcmsx(kk)=p%trcmsx(kk)+REAL(i,kind=r8)*s*rtx*p%rdx
-                   p%trcmsy(kk)=p%trcmsy(kk)+REAL(j,kind=r8)*s*rty*p%rdy
-                   p%trcmsz(kk)=p%trcmsz(kk)+REAL(k,kind=r8)*s*rtz*p%rdz
-
-                   s = s*tz
-                END DO
-
-                sij = sij*ty
-             END DO
-
-             qi = qi*tx
-
-          END DO
-
-       END DO     
-
-! Multiplication by B-inverse transpose
-
-       p%trcms = MATMUL(BinvT,p%trcms)
-       p%trcmsx= MATMUL(BinvT,p%trcmsx)
-       p%trcmsy= MATMUL(BinvT,p%trcmsy)
-       p%trcmsz= MATMUL(BinvT,p%trcmsz)
-       
-       RETURN
-       END SUBROUTINE TRICUBIC_MOMENTS
-!!!!!!!!!!!!!!!!!!!!!!!!
       SUBROUTINE CLEANUP(p)
       IMPLICIT NONE
 
