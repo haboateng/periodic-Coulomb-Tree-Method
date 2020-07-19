@@ -7,8 +7,8 @@ To use PCT instead of other methods for electrostatics in periodic boundary cond
 
 ltree           - causes DL_POLY to compute electrostatics with PCT
 
-taylor/tricubic - For the particle-cluster interaction, PCT will use a Taylor polynomial approximation if the key 'taylor' is included in the CONTROL 
-                  file and tricubic approximation if the key 'tricubic' is included. Be sure not to include both but you must include at least one  
+taylor          - For the particle-cluster interaction, PCT will use a Taylor polynomial approximation if the key 'taylor' is included in the CONTROL 
+                  file   
                   
 mactheta    x   - Sets the criterion for approximating a particle-cluster interaction via a Taylor polynomial/tricubic polynomial approximation. 
                   x should be between 0(zero) and 1(one). The method is more accurate for smaller y values but also more computationally expensive.
@@ -21,6 +21,6 @@ torder      z   - Sets the order of the Taylor polynomial approximation. This is
 lattlim     w   - Sets the range of periodic images. w is 0 or a positive interger. w = 0 means no periodic images. w = 1 means include nearest 
                   neihgbors of the fundmental box as periodic images
                  
-                  
+The folder Taylor has an example for using the Taylor approximations.
 
                   
