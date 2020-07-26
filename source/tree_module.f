@@ -592,9 +592,9 @@
          fy=-tempq*f(2)
          fz=-tempq*f(3)
 
-         fxx(ii)=fx !-tempq*f(1)
-         fyy(ii)=fy !-tempq*f(2)
-         fzz(ii)=fz !-tempq*f(3)
+         fxx(ii)=fxx(ii)+fx !-tempq*f(1)
+         fyy(ii)=fyy(ii)+fy !-tempq*f(2)
+         fzz(ii)=fzz(ii)+fz !-tempq*f(3)
          tpeng=tpeng+tempq*peng
          tvir=tvir-tempq*vir
 
