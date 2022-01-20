@@ -50,10 +50,10 @@
            INTEGER          :: level,num_children,exist_ms
            REAL(KIND=r8)    :: ccp(1:16,1:3)
            REAL(KIND=r8),DIMENSION(:,:,:),POINTER :: ms
-           REAL(KIND=r8),DIMENSION(:),POINTER :: trcms
-           REAL(KIND=r8),DIMENSION(:),POINTER :: trcmsx
-           REAL(KIND=r8),DIMENSION(:),POINTER :: trcmsy
-           REAL(KIND=r8),DIMENSION(:),POINTER :: trcmsz
+!           REAL(KIND=r8),DIMENSION(:),POINTER :: trcms
+!           REAL(KIND=r8),DIMENSION(:),POINTER :: trcmsx
+!           REAL(KIND=r8),DIMENSION(:),POINTER :: trcmsy
+!           REAL(KIND=r8),DIMENSION(:),POINTER :: trcmsz
            TYPE(tnode_pointer), DIMENSION(8) :: child
       END TYPE tnode
 
@@ -280,13 +280,13 @@
           END IF
           CALL COMP_MS(p,x,y,z,q,arrdim)
 
-          ALLOCATE(p%trcms(1:trcsize),p%trcmsx(1:trcsize), 
-     x           p%trcmsy(1:trcsize),p%trcmsz(1:trcsize),STAT=err)
-          IF (err .NE. 0) THEN
-             WRITE(6,*) 'Error allocating node moments! '
-             STOP
-          END IF
-          CALL TRICUBIC_MOMENTS(p,x,y,z,q,arrdim)
+!          ALLOCATE(p%trcms(1:trcsize),p%trcmsx(1:trcsize), 
+!     x           p%trcmsy(1:trcsize),p%trcmsz(1:trcsize),STAT=err)
+!          IF (err .NE. 0) THEN
+!             WRITE(6,*) 'Error allocating node moments! '
+!             STOP
+!          END IF
+!          CALL TRICUBIC_MOMENTS(p,x,y,z,q,arrdim)
 
           p%exist_ms=1
       END IF   
@@ -919,7 +919,8 @@ c     remove COM drift arising from treecode approximations
       INTEGER :: i,err
 
       IF (p%exist_ms .EQ. 1) THEN
-         DEALLOCATE(p%ms,p%trcms,p%trcmsx,p%trcmsy,p%trcmsz,STAT=err)
+         DEALLOCATE(p%ms,STAT=err)
+         !DEALLOCATE(p%ms,p%trcms,p%trcmsx,p%trcmsy,p%trcmsz,STAT=err)
          IF (err .NE. 0) THEN
             WRITE(6,*) 'Error deallocating node MS! '
             STOP
